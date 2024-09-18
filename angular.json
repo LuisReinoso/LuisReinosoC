@@ -30,7 +30,7 @@
             "styles": ["src/styles.scss"],
             "scripts": [],
             "stylePreprocessorOptions": {
-              "includePaths": ["./src/styles.scss"]
+              "includePaths": ["./src"]
             }
           },
           "configurations": {
@@ -93,9 +93,7 @@
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "."],
             "port": 6006,
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"]
           }
         },
         "build-storybook": {
