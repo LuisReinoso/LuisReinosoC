@@ -1,0 +1,31 @@
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  &--primary {
+    background-color: $primary-color;
+    color: #000;
+  }
+
+  &--secondary {
+    background-color: $secondary-color;
+    color: #fff;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &.btn--primary {
+      background-color: lighten($primary-color, 20%);
+      color: #aaa;
+    }
+
+    &.btn--secondary {
+      background-color: lighten($secondary-color, 20%);
+      color: #aaa;
+    }
+  }
+}
