@@ -6,12 +6,12 @@
 
   &--primary {
     background-color: $primary-color;
-    color: #000;
+    color: $black-color;
   }
 
   &--secondary {
     background-color: $secondary-color;
-    color: #fff;
+    color: $white-color;
   }
 
   &--disabled {
@@ -20,12 +20,12 @@
 
     &.btn--primary {
       background-color: lighten($primary-color, 20%);
-      color: #aaa;
+      color: $grey-color;
     }
 
     &.btn--secondary {
-      background-color: lighten($secondary-color, 20%);
-      color: #aaa;
+      background-color: lighten($secondary-color, 0%);
+      color: $white-color;
     }
   }
 }

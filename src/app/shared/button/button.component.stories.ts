@@ -23,3 +23,19 @@ export const primaryDisabled: Story = {
     disabled: true
   },
 };
+
+export const secondary: Story = {
+  args: {
+    color: 'secondary',
+    label: 'Reiniciar',
+    disabled: false
+  },
+};
+
+export const secondaryDisabled: Story = {
+  args: {
+    color: 'secondary',
+    label: 'Reiniciar',
+    disabled: true
+  },
+};
