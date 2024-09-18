@@ -11,7 +11,7 @@ describe('ButtonComponent', () => {
       imports: [ButtonComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -20,4 +20,16 @@ describe('ButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have label attribute', () => {
+    expect(component.label).toBeDefined();
+  })
+
+  it('should have color attribute', () => {
+    expect(component.color).toBeDefined();
+  })
+
+  it('should have disabled attribute', () => {
+    expect(component.disabled).toBeDefined();
+  })
 });
