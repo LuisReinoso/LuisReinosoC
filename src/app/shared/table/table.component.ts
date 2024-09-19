@@ -21,4 +21,12 @@ export class TableComponent {
   emitOpenMenu(mouseEvent: MouseEvent, dataId: string) {
     this.openMenu.emit({dataId, x: mouseEvent.x, y: mouseEvent.y});
   }
+
+  trackByIndex(index: number): number {
+    return index;
+  }
+
+  trackById(index: number, item: any): string {
+    return item.id;
+  }
 }

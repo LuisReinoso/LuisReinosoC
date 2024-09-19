@@ -2,9 +2,9 @@
   <thead class="table__header">
     <tr>
       <th
-        *ngFor="let column of columnTitles; let index = index"
+        *ngFor="let column of columnTitles; let index = index; trackBy: trackByIndex"
         [hidden]="column === 'id'"
-        [style.width]="100 / (columnNames.length - 1) + '%'"
+        [style.width]="(100 / (columnNames.length - 1)) + '%'"
       >
         {{ column }}
         <span [title]="columnInfo[index]" *ngIf="columnInfo[index]">ℹ️</span>
@@ -13,8 +13,8 @@
     </tr>
   </thead>
   <tbody class="table__body">
-    <tr *ngFor="let item of data">
-      <td *ngFor="let column of columnNames" [hidden]="column === 'id'">
+    <tr *ngFor="let item of data; trackBy: trackById">
+      <td *ngFor="let column of columnNames; trackBy: trackByIndex" [hidden]="column === 'id'">
         <ng-container *ngIf="column === 'logo'; else defaultCell">
           <div class="image-container">
             <img class="image" [src]="item[column]" />
