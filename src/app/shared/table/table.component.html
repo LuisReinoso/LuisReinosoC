@@ -1,0 +1,24 @@
+<table class="table">
+  <thead class="table__header">
+    <tr>
+      <th *ngFor="let column of columnTitles; let index = index" [hidden]="column === 'id'">
+        {{ column }}
+        <span [title]="columnInfo[index]" *ngIf="columnInfo[index]">ℹ️</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody class="table__body">
+    <tr *ngFor="let item of data">
+      <td *ngFor="let column of columnNames" [hidden]="column === 'id'">
+        <ng-container *ngIf="column === 'logo'; else defaultCell">
+          <div class="image-container">
+            <img class="image" [src]="item[column]" />
+          </div>
+        </ng-container>
+        <ng-template #defaultCell>
+          {{ item[column] | formatTableValue }}
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
