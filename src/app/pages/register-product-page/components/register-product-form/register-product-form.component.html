@@ -95,6 +95,6 @@
 </form>
 
 <section class="actions">
-  <app-button color="secondary" (click)="resetForm()" label="Reiniciar"></app-button>
+  <app-button color="secondary" (click)="resetForm(); emitReset();" label="Reiniciar"></app-button>
   <app-button [disabled]="form.invalid" color="primary" (click)="emitForm()" label="Enviar"></app-button>
 </section>

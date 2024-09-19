@@ -9,7 +9,9 @@ describe('ProductService', () => {
   let http: HttpClient;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [{ provide: HttpClient, useValue: { post: () => null, get: () => null} }] });
+    TestBed.configureTestingModule({
+      providers: [{ provide: HttpClient, useValue: { post: () => null, get: () => null, put: () => null } }],
+    });
     http = TestBed.inject(HttpClient);
     service = new ProductService(http);
   });
@@ -22,13 +24,13 @@ describe('ProductService', () => {
     const postRequestSpy = jest.spyOn(http, 'post');
 
     const product: ProductInterface = {
-      'id': '123',
-      'name': 'John',
-      'logo': 's',
-      'description': '',
-      'date_release': new Date(),
-      'date_revision': new Date()
-    }
+      id: '123',
+      name: 'John',
+      logo: 's',
+      description: '',
+      date_release: new Date(),
+      date_revision: new Date(),
+    };
     service.addProduct(product);
 
     expect(postRequestSpy).toHaveBeenCalledWith('/bp/products', product);
@@ -48,5 +50,21 @@ describe('ProductService', () => {
     service.checkIfProductExists('1');
 
     expect(getRequestSpy).toHaveBeenCalledWith('/bp/products/verification/1');
+  });
+
+  it('should call load product by id endpoint', () => {
+    const getRequestSpy = jest.spyOn(http, 'get');
+
+    service.loadProductById('111');
+
+    expect(getRequestSpy).toHaveBeenCalledWith('/bp/products/111');
+  });
+
+  it('should call update product endpoint', () => {
+    const putRequestSpy = jest.spyOn(http, 'put');
+
+    service.updateProduct('111', {} as ProductInterface);
+
+    expect(putRequestSpy).toHaveBeenCalledWith('/bp/products/111', {});
   });
 });

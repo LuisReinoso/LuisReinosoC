@@ -4,19 +4,22 @@ import { RegisterProductPageService } from './register-product-page.service';
 import { ProductService } from '@app/core/services/product.service';
 import { AlertService } from '@app/shared/alert/alert.service';
 import { ProductInterface } from '@app/models/product.model';
-import { AddProductSuccessAPI, ProductError } from '@app/models/product-api.model';
+import { AddProductSuccessAPI, ProductError, UpdateProductsSuccessAPI } from '@app/models/product-api.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertType } from '@app/models/alert.model';
+import { Router } from '@angular/router';
 
 describe('RegisterProductPageService', () => {
   let service: RegisterProductPageService;
   let productServiceMock: jest.Mocked<ProductService>;
   let alertServiceMock: jest.Mocked<AlertService>;
+  let router: Router;
 
   beforeEach(() => {
     productServiceMock = {
       addProduct: jest.fn(),
       listProducts: jest.fn().mockReturnValue(of()),
+      updateProduct: jest.fn()
     } as unknown as jest.Mocked<ProductService>;
     alertServiceMock = { showAlert: jest.fn() } as unknown as jest.Mocked<AlertService>;
 
@@ -25,9 +28,11 @@ describe('RegisterProductPageService', () => {
         RegisterProductPageService,
         { provide: ProductService, useValue: productServiceMock },
         { provide: AlertService, useValue: alertServiceMock },
+        { provide: Router, useValue: {'navigate': jest.fn()} },
       ],
     });
 
+    router = TestBed.inject(Router);
     service = TestBed.inject(RegisterProductPageService);
   });
 
@@ -104,5 +109,63 @@ describe('RegisterProductPageService', () => {
       message: 'Contactar con el administrador',
       isClosed: false,
     });
+  });
+
+  it('should successfully update a product and show success alert', () => {
+    const productId = '123';
+    const product: ProductInterface = {
+      id: productId,
+      name: 'Updated Product',
+      logo: 'updated_logo.png',
+      description: 'Updated description',
+      date_release: new Date(),
+      date_revision: new Date(),
+    };
+    const successResponse: UpdateProductsSuccessAPI = {
+      data: product,
+      message: 'Update successful',
+    };
+
+    productServiceMock.updateProduct.mockReturnValue(of(successResponse));
+
+    service.updateProduct(productId, product);
+
+    expect(alertServiceMock.showAlert).toHaveBeenCalledWith({
+      type: AlertType.success,
+      message: 'Producto actualizado',
+      isClosed: false,
+    });
+  });
+
+  it('should handle not found update error and show error alert', () => {
+    const productId = '123';
+    const product: ProductInterface = {
+      id: productId,
+      name: 'Updated Product',
+      logo: 'updated_logo.png',
+      description: 'Updated description',
+      date_release: new Date(),
+      date_revision: new Date(),
+    };
+    const errorResponse = new HttpErrorResponse({
+      error: { message: ProductError.notFoundUpdate },
+      status: 404,
+    });
+
+    productServiceMock.updateProduct.mockReturnValue(throwError(errorResponse));
+
+    service.updateProduct(productId, product);
+
+    expect(alertServiceMock.showAlert).toHaveBeenCalledWith({
+      type: AlertType.error,
+      message: 'Producto a actualizar no existe',
+      isClosed: false,
+    });
+  });
+
+  it('should navigate to empty form', () => {
+    service.navigateToEmptyForm();
+
+    expect(router.navigate).toHaveBeenCalledWith(['register-product'], { queryParams: {}, replaceUrl: true });
   });
 });

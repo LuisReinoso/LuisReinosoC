@@ -28,6 +28,7 @@ describe('ListProductService', () => {
     productServiceMock = {
       loadProducts: jest.fn(),
       listProducts: jest.fn().mockReturnValue(of({ data: [] })),
+      loadProductById: jest.fn().mockReturnValue(of({})),
     } as unknown as jest.Mocked<ProductService>;
 
     TestBed.configureTestingModule({
@@ -106,6 +107,33 @@ describe('ListProductService', () => {
 
     service.resultMessage$.pipe(take(1)).subscribe(messages => {
       expect(messages).toBe('3 resultados');
+      done();
+    });
+  });
+
+  it('should update products on store', done => {
+    service.addProductsToStore(productA);
+    service.updateProductToStore({ ...productA, name: 'fruit' });
+
+    service.products$.subscribe(products => {
+      const product = products[0];
+      expect(product.name).toBe('fruit');
+      done();
+    });
+  });
+
+  it('should get product from by id from store', done => {
+    service.addProductsToStore(productA);
+
+    service.getProductById('123').subscribe(product => {
+      expect(product.name).toBe('apple');
+      done();
+    });
+  });
+
+  it('should get product from by loadProductById function', done => {
+    service.getProductById('123').subscribe(() => {
+      expect(productServiceMock.loadProductById).toHaveBeenCalled();
       done();
     });
   });

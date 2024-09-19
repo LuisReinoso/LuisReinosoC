@@ -12,8 +12,19 @@ export interface AddProductErrorAPI {
 
 export enum ProductError {
   duplicateId = 'Duplicate identifier found in the database',
+  notFoundUpdate = 'Not product found with that identifier'
 }
 
 export interface ListProductsSuccessAPI {
   data: ProductInterface[];
+}
+
+export interface UpdateProductsSuccessAPI {
+  message: string;
+  data: ProductInterface;
+}
+
+export interface UpdateProductsErrorAPI {
+  message: string;
+  name: string;
 }

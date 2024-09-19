@@ -3,5 +3,10 @@
   <div class="separator"></div>
 </div>
 <div class="container container--borders">
-  <app-register-product-form (formValue)="addProduct($event)"></app-register-product-form>
+  <app-register-product-form
+    (formValue)="registerProductFormValue($event)"
+    (reset)="navigateToEmptyForm()"
+    [id]="this.id"
+    [product]="$any(this.id | loadProduct | async)"
+  ></app-register-product-form>
 </div>

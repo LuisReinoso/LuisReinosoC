@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductInterface } from '@app/models/product.model';
 import { ProductService } from './product.service';
-import { BehaviorSubject, combineLatest, map, take, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,17 @@ export class ListProductService {
     this.products.next([...this.products.value, product]);
   }
 
+  public updateProductToStore(productToUpdate: ProductInterface) {
+    const products = this.products.value.map(product => {
+      if (product.id === productToUpdate.id) {
+        return productToUpdate;
+      }
+      return product;
+    });
+
+    this.products.next(products);
+  }
+
   private generateProductMessage(products: number): string {
     if (products === 0) {
       return 'Sin resultados';
@@ -63,5 +74,15 @@ export class ListProductService {
 
   search(searchValue: string) {
     this.searchValue.next(searchValue);
+  }
+
+  getProductById(productId: string): Observable<ProductInterface> {
+    const product = this.products.value.find(product => product.id === productId);
+
+    if (!product) {
+      return this.productService.loadProductById(productId);
+    }
+
+    return of(product);
   }
 }

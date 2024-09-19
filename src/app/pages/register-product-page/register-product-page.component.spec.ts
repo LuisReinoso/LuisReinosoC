@@ -11,7 +11,12 @@ describe('RegisterProductPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RegisterProductPageComponent],
-      providers: [{ provide: RegisterProductPageService, useValue: { addProduct: () => null } }],
+      providers: [
+        {
+          provide: RegisterProductPageService,
+          useValue: { addProduct: () => null, updateProduct: () => null, navigateToEmptyForm: jest.fn() },
+        },
+      ],
     });
 
     registerProductPageService = TestBed.inject(RegisterProductPageService);
@@ -33,8 +38,33 @@ describe('RegisterProductPageComponent', () => {
       date_revision: new Date(),
     };
 
-    component.addProduct(product);
+    component.registerProductFormValue(product);
 
     expect(addProductSpy).toHaveBeenCalledWith(product);
+  });
+
+  it('should call the updatedProduct method', () => {
+    const productId = '111';
+    component.id = productId;
+
+    const updateProductSpy = jest.spyOn(registerProductPageService, 'updateProduct');
+    const product: ProductInterface = {
+      id: productId,
+      name: 'John',
+      logo: 's',
+      description: '',
+      date_release: new Date(),
+      date_revision: new Date(),
+    };
+
+    component.registerProductFormValue(product);
+
+    expect(updateProductSpy).toHaveBeenCalledWith(productId, product);
+  });
+
+  it('should call navigateToEmptyForm from registerProductPageService', () => {
+    component.navigateToEmptyForm();
+
+    expect(registerProductPageService.navigateToEmptyForm).toHaveBeenCalled();
   });
 });
