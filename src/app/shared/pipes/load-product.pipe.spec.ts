@@ -3,6 +3,7 @@ import { LoadProductPipe } from './load-product.pipe';
 import { ListProductService } from '@app/core/services/list-product.service';
 import { of } from 'rxjs';
 import { ProductInterface } from '@app/models/product.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('LoadProductPipe', () => {
   let pipe: LoadProductPipe;
@@ -17,6 +18,14 @@ describe('LoadProductPipe', () => {
           useValue: {
             getProductById: jest.fn().mockReturnValue(of()),
           },
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {},
+        },
+        {
+          provide: Router,
+          useValue: {},
         },
       ],
     });
