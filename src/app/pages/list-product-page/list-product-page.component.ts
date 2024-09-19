@@ -20,6 +20,7 @@ export class ListProductPageComponent {
   columnInfo = ['', '', '', 'Descripción del producto', 'Fecha inicial', 'Fecha final'];
   products$ = this.listProductPageService.products$;
   resultMessage$ = this.listProductPageService.resultMessage$;
+  selectOptions = [5, 10, 20];
 
   constructor(private listProductPageService: ListProductPageService) {}
 

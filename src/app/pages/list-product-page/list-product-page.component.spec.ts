@@ -51,6 +51,10 @@ describe('ListProductPageComponent', () => {
     expect(component.resultMessage$).toBeDefined();
   });
 
+  it('should have select options as 5, 10, 20', () => {
+    expect(component.selectOptions).toStrictEqual([5, 10, 20]);
+  });
+
   it('should call search from listProductPageService', () => {
     component.search('');
 

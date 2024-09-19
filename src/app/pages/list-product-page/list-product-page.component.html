@@ -13,6 +13,6 @@
 
   <div class="actions actions--bottom">
     <div>{{ resultMessage$ | async }}</div>
-    <app-select [data]="[1, 2, 5, 10, 15, 50, 100]" (selectionChange)="updateDisplayedItems($event)"></app-select>
+    <app-select [data]="selectOptions" (selectionChange)="updateDisplayedItems($event)"></app-select>
   </div>
 </div>
