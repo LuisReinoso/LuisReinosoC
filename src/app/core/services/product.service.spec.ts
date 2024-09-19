@@ -41,4 +41,12 @@ describe('ProductService', () => {
 
     expect(getRequestSpy).toHaveBeenCalledWith('/bp/products');
   });
+
+  it('should call check if product exist endpoint', () => {
+    const getRequestSpy = jest.spyOn(http, 'get');
+
+    service.checkIfProductExists('1');
+
+    expect(getRequestSpy).toHaveBeenCalledWith('/bp/products/verification/1');
+  });
 });

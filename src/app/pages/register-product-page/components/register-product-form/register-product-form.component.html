@@ -11,6 +11,9 @@
         <span class="input__error-message" *ngIf="form.get('id')?.errors?.['maxlength']">
           El Id debe tener como máximo 10 caracteres.
         </span>
+        <span class="input__error-message" *ngIf="form.get('id')?.errors?.['productExists']">
+          El producto ya existe.
+        </span>
       </div>
     </div>
 

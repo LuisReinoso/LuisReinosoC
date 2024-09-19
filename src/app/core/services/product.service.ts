@@ -17,4 +17,8 @@ export class ProductService {
   listProducts(): Observable<ListProductsSuccessAPI> {
     return this.http.get(`/bp/products`) as Observable<ListProductsSuccessAPI>;
   }
+
+  checkIfProductExists(id: ProductInterface['id']): Observable<boolean> {
+    return this.http.get(`/bp/products/verification/${id}`) as Observable<boolean>;
+  }
 }

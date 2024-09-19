@@ -4,19 +4,26 @@ import { RegisterProductFormComponent } from './register-product-form.component'
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { isRevisionDateOneYearLaterValidator, isTodayOrFutureDateValidator } from './validators/date.validator';
 import { ProductInterface } from '@app/models/product.model';
+import { ProductService } from '@app/core/services/product.service';
+import { of } from 'rxjs';
 
 describe('RegisterProductFormComponent', () => {
   let component: RegisterProductFormComponent;
   let fb: FormBuilder;
+  let productService: ProductService;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [RegisterProductFormComponent],
-      providers: [FormBuilder],
+      providers: [
+        FormBuilder,
+        { provide: ProductService, useValue: { checkIfProductExists: jest.fn().mockReturnValue(of(null)) } },
+      ],
     });
 
     fb = TestBed.inject(FormBuilder);
-    component = new RegisterProductFormComponent(fb);
+    productService = TestBed.inject(ProductService);
+    component = new RegisterProductFormComponent(fb, productService);
   });
 
   it('should create', () => {
