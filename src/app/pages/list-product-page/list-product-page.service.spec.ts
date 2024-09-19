@@ -109,4 +109,16 @@ describe('ListProductPageService', () => {
 
     expect(registerProductPageService.deleteProduct).toHaveBeenCalledWith(productId);
   });
+
+  it('should clear selected product id', (done) => {
+    const productId = '123';
+    service.openMenu({dataId: productId, x: 10, y: 20});
+
+    service.clearProductId();
+
+    service.selectedProductId$.subscribe(product => {
+      expect(product).toBe("");
+      done();
+    })
+  })
 });

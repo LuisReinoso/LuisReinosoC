@@ -35,4 +35,12 @@ describe('AlertComponent', () => {
   it('should initialize isVisible as false', () => {
     expect(component.isVisible).toBeFalsy();
   });
+
+  it('should emit close when call emitClose function', () => {
+    const closeSpy = jest.spyOn(component.close, 'emit');
+
+    component.emitClose();
+
+    expect(closeSpy).toHaveBeenCalled()
+  })
 });

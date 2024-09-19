@@ -9,8 +9,8 @@ describe('SearchComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [FormBuilder],
-      imports: [SearchComponent, ReactiveFormsModule]
-    })
+      imports: [SearchComponent, ReactiveFormsModule],
+    });
 
     fb = TestBed.inject(FormBuilder);
     component = new SearchComponent(fb);
@@ -21,7 +21,7 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit search value after 1 second of typing', (done) => {
+  it('should emit search value after 1 second of typing', done => {
     jest.useFakeTimers();
     const emitSpy = jest.spyOn(component.searchValueChange, 'emit');
 
@@ -33,7 +33,7 @@ describe('SearchComponent', () => {
     done();
   });
 
-  it('should not emit value when there is no change', (done) => {
+  it('should not emit value when there is no change', done => {
     jest.useFakeTimers();
     const emitSpy = jest.spyOn(component.searchValueChange, 'emit');
 
@@ -47,7 +47,7 @@ describe('SearchComponent', () => {
     done();
   });
 
-  it('should emit empty string when the input is cleared', (done) => {
+  it('should emit empty string when the input is cleared', done => {
     jest.useFakeTimers();
     const emitSpy = jest.spyOn(component.searchValueChange, 'emit');
 

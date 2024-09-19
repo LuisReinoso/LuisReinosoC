@@ -137,4 +137,27 @@ describe('ListProductService', () => {
       done();
     });
   });
+
+  it('should delete product from store', done => {
+    service.addProductsToStore(productA);
+
+    service.deleteProductOnStore('123');
+
+    service.products$.subscribe(products => {
+      expect(products.length).toBe(0);
+      done();
+    });
+  });
+
+  it('should update product to store', done => {
+    service.addProductsToStore(productA);
+    service.addProductsToStore(productB);
+
+    service.updateProductToStore({...productA, 'name': 'new apple'});
+
+    service.products$.subscribe(products => {
+      expect(products.length).toBe(2);
+      done();
+    });
+  });
 });

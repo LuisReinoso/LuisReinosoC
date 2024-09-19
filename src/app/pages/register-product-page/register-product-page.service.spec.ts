@@ -169,6 +169,32 @@ describe('RegisterProductPageService', () => {
     });
   });
 
+  it('should handle not found update default error and show error alert', () => {
+    const productId = '123';
+    const product: ProductInterface = {
+      id: productId,
+      name: 'Updated Product',
+      logo: 'updated_logo.png',
+      description: 'Updated description',
+      date_release: new Date(),
+      date_revision: new Date(),
+    };
+    const errorResponse = new HttpErrorResponse({
+      error: { message: 'diferent error' },
+      status: 404,
+    });
+
+    productServiceMock.updateProduct.mockReturnValue(throwError(errorResponse));
+
+    service.updateProduct(productId, product);
+
+    expect(alertServiceMock.showAlert).toHaveBeenCalledWith({
+      type: AlertType.error,
+      message: 'Contactar con el administrador',
+      isClosed: false,
+    });
+  });
+
   it('should navigate to empty form', () => {
     service.navigateToEmptyForm();
 
