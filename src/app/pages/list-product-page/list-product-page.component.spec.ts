@@ -17,6 +17,8 @@ describe('ListProductPageComponent', () => {
             updateDisplayedItems: jest.fn(),
             products$: jest.fn(),
             resultMessage$: jest.fn(),
+            openMenu: jest.fn(),
+            clearProductId: jest.fn(),
           },
         },
       ],
@@ -65,5 +67,19 @@ describe('ListProductPageComponent', () => {
     component.updateDisplayedItems(10);
 
     expect(listProductPageService.updateDisplayedItems).toHaveBeenCalledWith(10);
+  });
+
+  it('should call openMenu from listProductPageService', () => {
+    const event = {dataId: '', x: 0, y: 0};
+
+    component.openMenu(event);
+
+    expect(listProductPageService.openMenu).toHaveBeenCalledWith(event);
+  });
+
+  it('should call clearProductId from listProductPageService', () => {
+    component.clearProductId();
+
+    expect(listProductPageService.clearProductId).toHaveBeenCalled();
   });
 });

@@ -1,10 +1,15 @@
 <table class="table">
   <thead class="table__header">
     <tr>
-      <th *ngFor="let column of columnTitles; let index = index" [hidden]="column === 'id'">
+      <th
+        *ngFor="let column of columnTitles; let index = index"
+        [hidden]="column === 'id'"
+        [style.width]="100 / (columnNames.length - 1) + '%'"
+      >
         {{ column }}
         <span [title]="columnInfo[index]" *ngIf="columnInfo[index]">ℹ️</span>
       </th>
+      <th class="icon-column"></th>
     </tr>
   </thead>
   <tbody class="table__body">
@@ -18,6 +23,9 @@
         <ng-template #defaultCell>
           {{ item[column] | formatTableValue }}
         </ng-template>
+      </td>
+      <td class="icon-column">
+        <app-button label="⋮" color="icon" (click)="emitOpenMenu($event, item['id'])"></app-button>
       </td>
     </tr>
   </tbody>

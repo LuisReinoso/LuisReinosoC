@@ -9,6 +9,7 @@
     [columnNames]="columnNames"
     [columnInfo]="columnInfo"
     [data]="(products$ | async) || []"
+    (openMenu)="openMenu($event)"
   ></app-table>
 
   <div class="actions actions--bottom">
@@ -16,3 +17,7 @@
     <app-select [data]="selectOptions" (selectionChange)="updateDisplayedItems($event)"></app-select>
   </div>
 </div>
+
+<app-context-menu (closeMenu)="clearProductId()">
+  <div class="context-menu__item" [routerLink]="'/register-product/' + (selectedProductId$ | async)">Editar</div>
+</app-context-menu>

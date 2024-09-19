@@ -1,0 +1,8 @@
+<div
+  *ngIf="isOpen$ | async"
+  class="context-menu"
+  [style.top.px]="(position$ | async)?.y"
+  [style.left.px]="(position$ | async)?.x"
+>
+  <ng-content></ng-content>
+</div>
