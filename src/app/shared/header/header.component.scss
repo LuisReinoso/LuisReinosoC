@@ -1,0 +1,19 @@
+@import 'styles';
+
+:host {
+  width: 100%;
+  display: flex;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.title {
+  margin: 0px 20px;
+  color: $blue-color;
+}

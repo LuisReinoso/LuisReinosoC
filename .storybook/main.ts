@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/angular';
-const path = require("path");
+const path = require('path');
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -14,6 +14,7 @@ const config: StorybookConfig = {
     name: '@storybook/angular',
     options: {},
   },
+  staticDirs: [{ from: '../src/assets', to: '/assets' }],
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias = {
       styles: path.resolve(__dirname, '../src/styles.scss'),
