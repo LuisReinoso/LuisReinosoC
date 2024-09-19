@@ -1,7 +1,11 @@
 .form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
+
+  @include gt-md {
+    flex-direction: row;
+  }
 
   &__section {
     width: 100%;

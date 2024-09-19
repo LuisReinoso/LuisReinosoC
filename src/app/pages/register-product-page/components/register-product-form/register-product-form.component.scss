@@ -8,8 +8,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+
+  @include gt-md {
+    flex-direction: row;
+  }
 
   app-button {
-    margin: 30px;
+    margin: 10px;
+
+    @include gt-md {
+      margin: 30px;
+    }
   }
 }

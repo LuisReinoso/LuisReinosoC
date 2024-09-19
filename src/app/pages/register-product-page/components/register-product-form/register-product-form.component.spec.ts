@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { RegisterProductFormComponent } from './register-product-form.component';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { isRevisionDateOneYearLaterValidator, isTodayOrFutureDateValidator } from './validators/date.validator';
-import { ProductInterface } from '../../../models/product.model';
+import { ProductInterface } from '@app/models/product.model';
 
 describe('RegisterProductFormComponent', () => {
   let component: RegisterProductFormComponent;
