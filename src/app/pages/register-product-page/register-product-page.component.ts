@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RegisterProductFormComponent } from './components/register-product-form/register-product-form.component';
 import { ProductInterface } from '@app/models/product.model';
-import { ProductService } from '@app/core/services/product.service';
+import { RegisterProductPageService } from './register-product-page.service';
 
 @Component({
   standalone: true,
@@ -11,11 +11,9 @@ import { ProductService } from '@app/core/services/product.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterProductPageComponent {
-  constructor(public productService: ProductService) {}
+  constructor(private registerProductPageService: RegisterProductPageService) {}
 
   addProduct(product: ProductInterface) {
-    this.productService.addProduct(product).subscribe(result => {
-      console.log(result);
-    });
+    this.registerProductPageService.addProduct(product);
   }
 }

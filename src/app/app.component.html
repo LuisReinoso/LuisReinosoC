@@ -1,1 +1,5 @@
+<ng-container *ngIf="alertState$ | async as alertState">
+  <app-alert [message]="alertState.message" [type]="alertState.type" [isVisible]="true" (close)="closeAlert()"></app-alert>
+</ng-container>
+
 <router-outlet />

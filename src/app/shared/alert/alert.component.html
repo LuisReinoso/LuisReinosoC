@@ -1,0 +1,13 @@
+<div
+  *ngIf="isVisible"
+  class="alert"
+  [ngClass]="{
+    'alert--success': type === alertType.success,
+    'alert--error': type === alertType.error,
+    'alert--warning': type === alertType.warning,
+    'alert--info': type === alertType.info
+  }"
+>
+  <span>{{ message }}</span>
+  <button *ngIf="closable" class="alert__close" (click)="emitClose()">x</button>
+</div>
