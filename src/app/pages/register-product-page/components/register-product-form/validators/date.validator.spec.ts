@@ -16,8 +16,9 @@ describe('Date Validators tests', () => {
     });
 
     it('should return error for past dates', () => {
-      const pastDate = new Date();
+      const pastDate = new Date('2024-01-03');
       pastDate.setDate(pastDate.getDate() - 1);
+
       const control = { value: pastDate.toISOString().split('T')[0] } as AbstractControl;
       expect(isTodayOrFutureDateValidator(control)).toEqual({ dateValid: true });
     });
