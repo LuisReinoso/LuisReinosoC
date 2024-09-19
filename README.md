@@ -1,27 +1,70 @@
-# LuisReinoso
+# Luis Reinoso Angular Showcase
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+## Table of Contents
+- [Installation](#installation)
+- [Folder Structure](#folder-structure)
+- [Tools Used](#tools-used)
+- [Backend Requirements](#backend-requirements)
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Start the backend server `npm run start:dev` (this repo don't include it) you will see an error due angular proxy
+2. Run the next actions
 
-## Code scaffolding
+| **Action**                | **npm**      | **pnpm (best option)**     |
+|---------------------------|------------------------|------------------------|
+| Install Dependencies       | `npm install`          | `pnpm install`         |
+| Start Project              | `npm run start`        | `pnpm start`           |
+| Run Storybook              | `npm run storybook`    | `pnpm storybook`       |
+| Run Tests                  | `npm run test`         | `pnpm test`            |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Folder Structure
 
-## Build
+The project follows a structured folder layout, organized as follows:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+./src/
+├── app
+│   ├── core
+│   │   └── services
+│   ├── models
+│   ├── pages
+│   │   ├── list-product-page
+│   │   └── register-product-page
+│   │       └── components
+│   │           └── register-product-form
+│   └── shared
+│       ├── alert
+│       ├── button
+│       ├── context-menu
+│       ├── dialog
+│       ├── header
+│       ├── pipes
+│       ├── search
+│       ├── select
+│       └── table
+├── assets
+├── styles
+│   ├── abstracts
+│   └── components
+└── styles.scss
+```
+- **app**: Contains the primary application components, services, and routing configurations.
+- **core**: Contains core services that provide data and methods throughout the app.
+- **models**: Data models used across the application.
+- **pages**: Contains page components including their respective services.
+- **shared**: Contains reusable components, directives, and pipes.
+- **assets**: Contains images and other static assets.
+- **styles**: Contains global styles and component-specific styles.
 
-## Running unit tests
+## Tools Used
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular** : Framework for building the application.
+- **Storybook**: Tool for developing UI components in isolation.
+- **Jest**: JavaScript testing framework used for running unit tests.
+- **Wallaby.js**: Continuous test runner for real-time test feedback.
+- **pnpm**: Fast node package manager
 
-## Running end-to-end tests
+## Backend Requirements
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This application uses Angular proxy configurations to connect to a backend server. Ensure that you start the provided backend before running the application for end-to-end functionality.
