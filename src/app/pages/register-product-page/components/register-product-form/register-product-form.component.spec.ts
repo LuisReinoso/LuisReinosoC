@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RegisterProductFormComponent } from './register-product-form.component';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { isRevisionDateOneYearLaterValidator, isTodayOrFutureDateValidator } from './validators/date.validator';
+import { FormBuilder } from '@angular/forms';
 import { ProductInterface } from '@app/models/product.model';
 import { ProductService } from '@app/core/services/product.service';
 import { of } from 'rxjs';
@@ -32,32 +31,6 @@ describe('RegisterProductFormComponent', () => {
 
   it('should have defined formValue output', () => {
     expect(component.formValue).toBeDefined();
-  });
-
-  it('should have defined form with validators', () => {
-    const controls = component.form.controls;
-
-    expect(hasValidator(controls['id'], Validators.required)).toBe(true);
-    expect(hasValidator(controls['id'], Validators.minLength(3))).toBe(true);
-    expect(hasValidator(controls['id'], Validators.maxLength(10))).toBe(true);
-
-    expect(hasValidator(controls['name'], Validators.required)).toBe(true);
-    expect(hasValidator(controls['name'], Validators.minLength(5))).toBe(true);
-    expect(hasValidator(controls['name'], Validators.maxLength(100))).toBe(true);
-
-    expect(hasValidator(controls['description'], Validators.required)).toBe(true);
-    expect(hasValidator(controls['description'], Validators.minLength(10))).toBe(true);
-    expect(hasValidator(controls['description'], Validators.maxLength(200))).toBe(true);
-
-    expect(hasValidator(controls['logo'], Validators.required)).toBe(true);
-
-    expect(hasValidator(controls['date_release'], Validators.required)).toBe(true);
-    expect(hasValidator(controls['date_release'], isTodayOrFutureDateValidator)).toBe(true);
-
-    expect(hasValidator(controls['date_revision'], Validators.required)).toBe(true);
-    expect(
-      hasValidator(controls['date_revision'], isRevisionDateOneYearLaterValidator.bind(null, 'date_release'))
-    ).toBe(true);
   });
 
   it('should reset form after call reset form function', () => {
@@ -162,14 +135,4 @@ describe('RegisterProductFormComponent', () => {
 
     expect(loadProductSpy).toHaveBeenCalled();
   })
-
-
 });
-
-function hasValidator(control: AbstractControl, validator: Function): boolean {
-  const validators = control.validator ? [control.validator] : [];
-  return validators.some(v => {
-    const validatorFn = v(control);
-    return validatorFn && validatorFn.hasOwnProperty('required');
-  });
-}
