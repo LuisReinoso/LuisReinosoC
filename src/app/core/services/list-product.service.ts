@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductInterface } from '@app/models/product.model';
 import { ProductService } from './product.service';
-import { BehaviorSubject, combineLatest, map, Observable, of, take } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of, take, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -80,7 +80,11 @@ export class ListProductService {
     const product = this.products.value.find(product => product.id === productId);
 
     if (!product) {
-      return this.productService.loadProductById(productId);
+      return this.productService.loadProductById(productId).pipe(
+        catchError(error => {
+          return throwError(new Error(error.message));
+        })
+      );
     }
 
     return of(product);
