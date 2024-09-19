@@ -1,6 +1,7 @@
 .select-container {
   position: relative;
   width: 100%;
+  user-select: none;
 
   &__select {
     width: 100%;
