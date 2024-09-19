@@ -59,7 +59,7 @@
       <div *ngIf="form.get('name')?.invalid && (form.get('name')!.dirty || form.get('name')!.touched)">
         <span class="input__error-message" *ngIf="form.get('name')?.errors?.['required']">El Nombre es requerido.</span>
         <span class="input__error-message" *ngIf="form.get('name')?.errors?.['minlength']">
-          El Nombre debe tener al menos 5 caracteres.
+          El Nombre debe tener al menos 6 caracteres.
         </span>
         <span class="input__error-message" *ngIf="form.get('name')?.errors?.['maxlength']">
           El Nombre debe tener como máximo 100 caracteres.
