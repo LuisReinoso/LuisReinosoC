@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AddProductSuccessAPI, ListProductsSuccessAPI, UpdateProductsSuccessAPI } from '@app/models/product-api.model';
+import { AddProductSuccessAPI, DeleteProductSuccessAPI, ListProductsSuccessAPI, UpdateProductsSuccessAPI } from '@app/models/product-api.model';
 import { ProductInterface } from '@app/models/product.model';
 import { Observable } from 'rxjs';
 
@@ -28,5 +28,9 @@ export class ProductService {
 
   updateProduct(productId: ProductInterface['id'], product: ProductInterface): Observable<UpdateProductsSuccessAPI> {
     return this.http.put(`/bp/products/${productId}`, product) as Observable<UpdateProductsSuccessAPI>;
+  }
+
+  deleteProduct(productId: string): Observable<DeleteProductSuccessAPI> {
+    return this.http.delete(`/bp/products/${productId}`) as Observable<DeleteProductSuccessAPI>
   }
 }

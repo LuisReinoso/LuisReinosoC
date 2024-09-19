@@ -85,4 +85,9 @@ export class ListProductService {
 
     return of(product);
   }
+
+  deleteProductOnStore(productId: string): void {
+    const products = this.products.value.filter(product => product.id !== productId);
+    this.products.next(products);
+  }
 }

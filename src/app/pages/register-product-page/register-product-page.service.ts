@@ -7,12 +7,14 @@ import { AlertType } from '@app/models/alert.model';
 import {
   AddProductErrorAPI,
   AddProductSuccessAPI,
+  DeleteProductsErrorAPI,
   ProductError,
   UpdateProductsErrorAPI,
   UpdateProductsSuccessAPI,
 } from '@app/models/product-api.model';
 import { ProductInterface } from '@app/models/product.model';
 import { AlertService } from '@app/shared/alert/alert.service';
+import { DialogService } from '@app/shared/dialog/dialog.service';
 import { catchError, EMPTY } from 'rxjs';
 
 @Injectable({
@@ -23,7 +25,8 @@ export class RegisterProductPageService {
     public productService: ProductService,
     private alertService: AlertService,
     private router: Router,
-    private listProductService: ListProductService
+    private listProductService: ListProductService,
+    private dialogService: DialogService
   ) {}
 
   addProduct(product: ProductInterface) {
@@ -84,5 +87,33 @@ export class RegisterProductPageService {
 
   navigateToEmptyForm() {
     this.router.navigate(['register-product'], { queryParams: {}, replaceUrl: true });
+  }
+
+  deleteProduct(productId: ProductInterface['id']) {
+    this.productService
+      .deleteProduct(productId)
+      .pipe(
+        catchError((errorResponse: HttpErrorResponse) => {
+          const error: DeleteProductsErrorAPI = errorResponse.error;
+          let errorMessage = '';
+
+          switch (error.message) {
+            case ProductError.notFoundUpdate:
+              errorMessage = 'Producto a eliminar no existe';
+              break;
+            default:
+              errorMessage = 'Contactar con el administrador';
+              break;
+          }
+
+          this.alertService.showAlert({ type: AlertType.error, message: errorMessage, isClosed: false });
+          return EMPTY;
+        })
+      )
+      .subscribe(() => {
+        this.listProductService.deleteProductOnStore(productId);
+        this.dialogService.close();
+        this.alertService.showAlert({ type: AlertType.success, message: 'Producto eliminado', isClosed: false });
+      });
   }
 }

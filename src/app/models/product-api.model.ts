@@ -28,3 +28,12 @@ export interface UpdateProductsErrorAPI {
   message: string;
   name: string;
 }
+
+export interface DeleteProductSuccessAPI {
+  message: string;
+}
+
+export interface DeleteProductsErrorAPI {
+  name: string;
+  message: string;
+}

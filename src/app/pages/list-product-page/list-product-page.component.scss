@@ -37,6 +37,15 @@ $container-size: 70%;
     margin: 20px;
     max-width: 100%;
   }
+
+  &--dialog {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    max-width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid $grey-color;
+  }
 }
 
 app-table {

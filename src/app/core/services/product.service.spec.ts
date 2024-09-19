@@ -10,7 +10,9 @@ describe('ProductService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: HttpClient, useValue: { post: () => null, get: () => null, put: () => null } }],
+      providers: [
+        { provide: HttpClient, useValue: { post: () => null, get: () => null, put: () => null, delete: () => null } },
+      ],
     });
     http = TestBed.inject(HttpClient);
     service = new ProductService(http);
@@ -66,5 +68,13 @@ describe('ProductService', () => {
     service.updateProduct('111', {} as ProductInterface);
 
     expect(putRequestSpy).toHaveBeenCalledWith('/bp/products/111', {});
+  });
+
+  it('should call delete product endpoint', () => {
+    const deleteRequestSpy = jest.spyOn(http, 'delete');
+
+    service.deleteProduct('111');
+
+    expect(deleteRequestSpy).toHaveBeenCalledWith('/bp/products/111');
   });
 });

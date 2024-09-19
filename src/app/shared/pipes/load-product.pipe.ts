@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 export class LoadProductPipe implements PipeTransform {
   constructor(private listProductService: ListProductService) {}
 
-  transform(productId: ProductInterface['id']): Observable<ProductInterface | null> {
+  transform(productId: ProductInterface['id'] | null): Observable<ProductInterface | null> {
     if (!productId) {
       return of(null);
     }

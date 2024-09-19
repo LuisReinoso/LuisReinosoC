@@ -19,6 +19,9 @@ describe('ListProductPageComponent', () => {
             resultMessage$: jest.fn(),
             openMenu: jest.fn(),
             clearProductId: jest.fn(),
+            closeDialog: jest.fn(),
+            openDeleteDialog: jest.fn(),
+            deleteProduct: jest.fn(),
           },
         },
       ],
@@ -70,7 +73,7 @@ describe('ListProductPageComponent', () => {
   });
 
   it('should call openMenu from listProductPageService', () => {
-    const event = {dataId: '', x: 0, y: 0};
+    const event = { dataId: '', x: 0, y: 0 };
 
     component.openMenu(event);
 
@@ -81,5 +84,23 @@ describe('ListProductPageComponent', () => {
     component.clearProductId();
 
     expect(listProductPageService.clearProductId).toHaveBeenCalled();
+  });
+
+  it('should call openDeleteDialog from listProductPageService', () => {
+    component.openDeleteDialog();
+
+    expect(listProductPageService.openDeleteDialog).toHaveBeenCalled();
+  });
+
+  it('should call deleteProduct from listProductPageService', () => {
+    component.deleteProduct();
+
+    expect(listProductPageService.deleteProduct).toHaveBeenCalled();
+  });
+
+  it('should call closeDialog from listProductPageService', () => {
+    component.closeDialog();
+
+    expect(listProductPageService.closeDialog).toHaveBeenCalled();
   });
 });

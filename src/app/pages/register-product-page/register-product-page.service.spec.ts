@@ -4,7 +4,12 @@ import { RegisterProductPageService } from './register-product-page.service';
 import { ProductService } from '@app/core/services/product.service';
 import { AlertService } from '@app/shared/alert/alert.service';
 import { ProductInterface } from '@app/models/product.model';
-import { AddProductSuccessAPI, ProductError, UpdateProductsSuccessAPI } from '@app/models/product-api.model';
+import {
+  AddProductSuccessAPI,
+  DeleteProductSuccessAPI,
+  ProductError,
+  UpdateProductsSuccessAPI,
+} from '@app/models/product-api.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertType } from '@app/models/alert.model';
 import { Router } from '@angular/router';
@@ -19,7 +24,8 @@ describe('RegisterProductPageService', () => {
     productServiceMock = {
       addProduct: jest.fn(),
       listProducts: jest.fn().mockReturnValue(of()),
-      updateProduct: jest.fn()
+      updateProduct: jest.fn(),
+      deleteProduct: jest.fn(),
     } as unknown as jest.Mocked<ProductService>;
     alertServiceMock = { showAlert: jest.fn() } as unknown as jest.Mocked<AlertService>;
 
@@ -28,7 +34,7 @@ describe('RegisterProductPageService', () => {
         RegisterProductPageService,
         { provide: ProductService, useValue: productServiceMock },
         { provide: AlertService, useValue: alertServiceMock },
-        { provide: Router, useValue: {'navigate': jest.fn()} },
+        { provide: Router, useValue: { navigate: jest.fn() } },
       ],
     });
 
@@ -167,5 +173,55 @@ describe('RegisterProductPageService', () => {
     service.navigateToEmptyForm();
 
     expect(router.navigate).toHaveBeenCalledWith(['register-product'], { queryParams: {}, replaceUrl: true });
+  });
+
+  it('should successfully delete a product and show success alert', () => {
+    const productId = '123';
+
+    productServiceMock.deleteProduct.mockReturnValue(of({ message: '' } as DeleteProductSuccessAPI));
+
+    service.deleteProduct(productId);
+
+    expect(alertServiceMock.showAlert).toHaveBeenCalledWith({
+      type: AlertType.success,
+      message: 'Producto eliminado',
+      isClosed: false,
+    });
+  });
+
+  it('should handle not found delete error and show error alert', () => {
+    const productId = '123';
+    const errorResponse = new HttpErrorResponse({
+      error: { message: ProductError.notFoundUpdate },
+      status: 404,
+    });
+
+    productServiceMock.deleteProduct.mockReturnValue(throwError(errorResponse));
+
+    service.deleteProduct(productId);
+
+    expect(alertServiceMock.showAlert).toHaveBeenCalledWith({
+      type: AlertType.error,
+      message: 'Producto a eliminar no existe',
+      isClosed: false,
+    });
+  });
+
+  it('should handle generic error on delete and show contact admin alert', () => {
+    const productId = '123';
+    const errorResponse = new HttpErrorResponse({
+      error: { message: 'generic error' },
+      status: 400,
+    });
+
+    productServiceMock.deleteProduct.mockReturnValue(throwError(errorResponse));
+
+    service.deleteProduct(productId);
+
+    expect(alertServiceMock.showAlert).toHaveBeenCalledWith({
+      type: AlertType.error,
+      message: 'Contactar con el administrador',
+      isClosed: false,
+    });
   });
 });

@@ -1,0 +1,6 @@
+
+
+<div class="dialog-overlay" [hidden]="!(isVisible$ | async)"></div>
+<div class="dialog" [hidden]="!(isVisible$ | async)">
+  <ng-content></ng-content>
+</div>

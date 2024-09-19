@@ -7,6 +7,8 @@ import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SelectComponent } from '../../shared/select/select.component';
 import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
+import { DialogComponent } from "../../shared/dialog/dialog.component";
+import { LoadProductPipe } from "../../shared/pipes/load-product.pipe";
 
 @Component({
   standalone: true,
@@ -18,7 +20,9 @@ import { ContextMenuComponent } from '../../shared/context-menu/context-menu.com
     RouterLink,
     SelectComponent,
     ContextMenuComponent,
-  ],
+    DialogComponent,
+    LoadProductPipe
+],
   templateUrl: './list-product-page.component.html',
   styleUrl: './list-product-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,5 +52,17 @@ export class ListProductPageComponent {
 
   clearProductId(): void {
     this.listProductPageService.clearProductId();
+  }
+
+  closeDialog(): void {
+    this.listProductPageService.closeDialog();
+  }
+
+  openDeleteDialog(): void {
+    this.listProductPageService.openDeleteDialog();
+  }
+
+  deleteProduct(): void {
+    this.listProductPageService.deleteProduct();
   }
 }

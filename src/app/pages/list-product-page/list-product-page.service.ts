@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ListProductService } from '@app/core/services/list-product.service';
 import { ContextMenuService } from '@app/shared/context-menu/context-menu.service';
+import { DialogService } from '@app/shared/dialog/dialog.service';
 import { BehaviorSubject } from 'rxjs';
+import { RegisterProductPageService } from '../register-product-page/register-product-page.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,12 @@ export class ListProductPageService {
   private selectedProductId: BehaviorSubject<string> = new BehaviorSubject('');
   selectedProductId$ = this.selectedProductId.asObservable();
 
-  constructor(private listProductService: ListProductService, private contextMenuService: ContextMenuService) {}
+  constructor(
+    private listProductService: ListProductService,
+    private contextMenuService: ContextMenuService,
+    private dialogService: DialogService,
+    private registerProductPageService: RegisterProductPageService
+  ) {}
 
   updateDisplayedItems(displayedItems: number) {
     this.listProductService.updateDisplayedItems(displayedItems);
@@ -31,5 +38,17 @@ export class ListProductPageService {
 
   clearProductId() {
     this.selectedProductId.next('');
+  }
+
+  closeDialog() {
+    this.dialogService.close();
+  }
+
+  openDeleteDialog() {
+    this.dialogService.open();
+  }
+
+  deleteProduct() {
+    this.registerProductPageService.deleteProduct(this.selectedProductId.value);
   }
 }

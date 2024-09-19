@@ -20,4 +20,13 @@
 
 <app-context-menu (closeMenu)="clearProductId()">
   <div class="context-menu__item" [routerLink]="'/register-product/' + (selectedProductId$ | async)">Editar</div>
+  <div class="context-menu__item" (click)="openDeleteDialog()">Eliminar</div>
 </app-context-menu>
+
+<app-dialog (clickOut)="closeDialog()">
+  <span class="dialog__text">¿Estas seguro de eliminar el producto {{ (selectedProductId$ | async | loadProduct | async)?.name }} ?</span>
+  <div class="actions actions--dialog">
+    <app-button color="secondary" label="Cancelar" (click)="closeDialog()"></app-button>
+    <app-button color="primary" label="Confirmar" (click)="deleteProduct()"></app-button>
+  </div>
+</app-dialog>
