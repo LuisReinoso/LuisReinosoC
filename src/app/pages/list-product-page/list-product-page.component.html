@@ -1,0 +1,18 @@
+<div class="actions">
+  <app-search (searchValueChange)="search($event)"></app-search>
+  <app-button color="primary" label="Agregar" routerLink="/register-product"></app-button>
+</div>
+
+<div class="container container--borders">
+  <app-table
+    [columnTitles]="columnTitles"
+    [columnNames]="columnNames"
+    [columnInfo]="columnInfo"
+    [data]="(products$ | async) || []"
+  ></app-table>
+
+  <div class="actions actions--bottom">
+    <div>{{ resultMessage$ | async }}</div>
+    <app-select [data]="[1, 2, 5, 10, 15, 50, 100]" (selectionChange)="updateDisplayedItems($event)"></app-select>
+  </div>
+</div>

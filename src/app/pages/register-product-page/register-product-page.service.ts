@@ -1,5 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { ListProductService } from '@app/core/services/list-product.service';
 import { ProductService } from '@app/core/services/product.service';
 import { AlertType } from '@app/models/alert.model';
 import { AddProductErrorAPI, AddProductSuccessAPI, ProductError } from '@app/models/product-api.model';
@@ -11,7 +13,12 @@ import { catchError, EMPTY } from 'rxjs';
   providedIn: 'root',
 })
 export class RegisterProductPageService {
-  constructor(public productService: ProductService, private alertService: AlertService) {}
+  constructor(
+    public productService: ProductService,
+    private alertService: AlertService,
+    private router: Router,
+    private listProductService: ListProductService
+  ) {}
 
   addProduct(product: ProductInterface) {
     this.productService
@@ -35,7 +42,9 @@ export class RegisterProductPageService {
         })
       )
       .subscribe((product: AddProductSuccessAPI) => {
+        this.listProductService.addProductsToStore(product.data);
         this.alertService.showAlert({ type: AlertType.success, message: 'Producto agregado', isClosed: false });
+        this.router.navigate(['']);
       });
   }
 }

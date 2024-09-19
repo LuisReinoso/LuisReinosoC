@@ -9,7 +9,7 @@ describe('ProductService', () => {
   let http: HttpClient;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [{ provide: HttpClient, useValue: { post: () => null } }] });
+    TestBed.configureTestingModule({ providers: [{ provide: HttpClient, useValue: { post: () => null, get: () => null} }] });
     http = TestBed.inject(HttpClient);
     service = new ProductService(http);
   });
@@ -32,5 +32,13 @@ describe('ProductService', () => {
     service.addProduct(product);
 
     expect(postRequestSpy).toHaveBeenCalledWith('/bp/products', product);
+  });
+
+  it('should call list product endpoint', () => {
+    const getRequestSpy = jest.spyOn(http, 'get');
+
+    service.listProducts();
+
+    expect(getRequestSpy).toHaveBeenCalledWith('/bp/products');
   });
 });

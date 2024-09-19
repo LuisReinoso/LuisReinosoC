@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AddProductSuccessAPI } from '@app/models/product-api.model';
+import { AddProductSuccessAPI, ListProductsSuccessAPI } from '@app/models/product-api.model';
 import { ProductInterface } from '@app/models/product.model';
 import { Observable } from 'rxjs';
 
@@ -12,5 +12,9 @@ export class ProductService {
 
   addProduct(product: ProductInterface): Observable<AddProductSuccessAPI> {
     return this.http.post(`/bp/products`, product) as Observable<AddProductSuccessAPI>;
+  }
+
+  listProducts(): Observable<ListProductsSuccessAPI> {
+    return this.http.get(`/bp/products`) as Observable<ListProductsSuccessAPI>;
   }
 }

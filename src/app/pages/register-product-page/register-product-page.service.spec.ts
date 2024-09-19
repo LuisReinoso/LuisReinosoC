@@ -14,7 +14,10 @@ describe('RegisterProductPageService', () => {
   let alertServiceMock: jest.Mocked<AlertService>;
 
   beforeEach(() => {
-    productServiceMock = { addProduct: jest.fn() } as unknown as jest.Mocked<ProductService>;
+    productServiceMock = {
+      addProduct: jest.fn(),
+      listProducts: jest.fn().mockReturnValue(of()),
+    } as unknown as jest.Mocked<ProductService>;
     alertServiceMock = { showAlert: jest.fn() } as unknown as jest.Mocked<AlertService>;
 
     TestBed.configureTestingModule({

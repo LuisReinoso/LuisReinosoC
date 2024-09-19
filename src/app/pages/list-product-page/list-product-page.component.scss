@@ -1,0 +1,45 @@
+@import 'styles';
+
+$container-size: 70%;
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $background-color;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: $container-size;
+  width: 100%;
+  background-color: $white-color;
+
+  &--borders {
+    padding: 10px 20px;
+  }
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  max-width: $container-size;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  &--bottom {
+    margin: 20px;
+    max-width: 100%;
+  }
+}
+
+app-table {
+  max-height: 400px;
+  overflow-y: auto;
+}

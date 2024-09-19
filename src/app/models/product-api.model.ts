@@ -13,3 +13,7 @@ export interface AddProductErrorAPI {
 export enum ProductError {
   duplicateId = 'Duplicate identifier found in the database',
 }
+
+export interface ListProductsSuccessAPI {
+  data: ProductInterface[];
+}
