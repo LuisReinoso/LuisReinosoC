@@ -22,6 +22,7 @@ describe('ListProductPageComponent', () => {
             closeDialog: jest.fn(),
             openDeleteDialog: jest.fn(),
             deleteProduct: jest.fn(),
+            closeContextMenu: jest.fn(),
           },
         },
       ],
@@ -102,5 +103,11 @@ describe('ListProductPageComponent', () => {
     component.closeDialog();
 
     expect(listProductPageService.closeDialog).toHaveBeenCalled();
+  });
+
+  it('should call closeContextMenu from listProductPageService', () => {
+    component.closeContextMenu();
+
+    expect(listProductPageService.closeContextMenu).toHaveBeenCalled();
   });
 });

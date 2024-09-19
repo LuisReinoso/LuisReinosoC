@@ -19,8 +19,8 @@
 </div>
 
 <app-context-menu (closeMenu)="clearProductId()">
-  <div class="context-menu__item" [routerLink]="'/register-product/' + (selectedProductId$ | async)">Editar</div>
-  <div class="context-menu__item" (click)="openDeleteDialog()">Eliminar</div>
+  <div class="context-menu__item" (click)="closeContextMenu()" [routerLink]="'/register-product/' + (selectedProductId$ | async)">Editar</div>
+  <div class="context-menu__item" (click)="openDeleteDialog(); closeContextMenu()">Eliminar</div>
 </app-context-menu>
 
 <app-dialog (clickOut)="closeDialog()">

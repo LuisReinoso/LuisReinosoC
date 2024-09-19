@@ -51,4 +51,8 @@ export class ListProductPageService {
   deleteProduct() {
     this.registerProductPageService.deleteProduct(this.selectedProductId.value);
   }
+
+  closeContextMenu() {
+   this.contextMenuService.close();
+  }
 }

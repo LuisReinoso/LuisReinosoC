@@ -32,6 +32,7 @@ describe('ListProductPageService', () => {
           useValue: {
             setPosition: jest.fn(),
             open: jest.fn(),
+            close: jest.fn(),
           },
         },
         {
@@ -120,5 +121,11 @@ describe('ListProductPageService', () => {
       expect(product).toBe("");
       done();
     })
+  })
+
+  it('should call context menu', () => {
+    service.closeContextMenu();
+
+    expect(contextMenuService.close).toHaveBeenCalled();
   })
 });

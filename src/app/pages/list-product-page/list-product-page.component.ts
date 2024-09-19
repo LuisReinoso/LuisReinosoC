@@ -65,4 +65,8 @@ export class ListProductPageComponent {
   deleteProduct(): void {
     this.listProductPageService.deleteProduct();
   }
+
+  closeContextMenu(): void {
+    this.listProductPageService.closeContextMenu();
+  }
 }
